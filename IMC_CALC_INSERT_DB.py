@@ -2,18 +2,20 @@
 
 import sqlite3
 
-con = sqlite3.connect("imc.db")
+con = sqlite3.connect("imc_calc.db")
 cur = con.cursor()
 
+nome = input("Digite seu Nome:")
 peso = float(input("Digite seu peso:"))
 altura = float(input("Digite sua altura:"))
 imc = peso / (altura * altura)
 
-sql = "insert into calc_imc values (null, ?, ?, ?)"
+sql = "insert into calc_imc values (null,?, ?, ?, ?)"
 
-recset = [(peso,altura,imc)]
+recset = [(nome,peso,altura,imc)]
 
-cur.execute(sql, recset)
+for rec in recset:
+    cur.execute(sql, rec)
 con.commit()
 
 con.close()
